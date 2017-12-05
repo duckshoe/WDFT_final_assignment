@@ -6,6 +6,7 @@
     "axios": "^0.17.1",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.2",
+    "nba.js": "^0.5.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17",
