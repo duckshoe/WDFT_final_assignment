@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Onoff from './components/Onoff';
+import AdvStats from './components/AdvStats';
 
 class App extends Component {
+  constructor() {
+		super();
+		this.state = {
+        
+		}
   render() {
     return (
       <div className="App">

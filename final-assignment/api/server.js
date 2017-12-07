@@ -2,6 +2,10 @@ const request = require("request");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const express = require("express");
+const mongoose = require('mongoose');
+const BBR = require('../models/bballref');
+const RPM = require('../models/rpm');
+const OnOff = require('../models/onoff');
 const nba = require('nba.js').default;
 const app = express();
 let array = [];
@@ -11,6 +15,13 @@ var torData = [];
 var rpmURL = "http://www.espn.com/nba/statistics/rpm/_/page/";
 var bbRefURL = "https://www.basketball-reference.com/teams/TOR/2018.html";
 var nbaURL = 'https://stats.nba.com/stats/teamplayeronoffdetails';
+
+mongoose.connect('mongodb://localhost/data/db/');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+	console.log("Connected to db at /data/db/")
+});
 
 function chunk (arr, len) {
           i = 0,
@@ -34,85 +45,107 @@ app.listen(8080, ()=>{
 function getRPM(url) {
     let counter = 0;
     let results = [];
-for (let i=1; i<12; i++){   
-        //return 
-    axios.get(rpmURL + i)
-    .then(response => {
-        let $ = cheerio.load(response.data)
-        let data = $('td')
-        .map((index, element)=> $(element).text()).get();
-        chunk(data, 9);
-        counter ++;
-        for (let j = 0; j<chunks.length; j++) {
-            if (chunks[j][2] === "TOR"){
+    for (let i=1; i<12; i++){   
+        axios.get(rpmURL + i)
+        .then(response => {
+            let $ = cheerio.load(response.data)
+            let data = $('td')
+            .map((index, element)=> $(element).text()).get();
+            chunk(data, 9);
+            counter ++;
+                for (let j = 0; j<chunks.length; j++) {
+                    if (chunks[j][2] === "TOR"){
                     torArray.push(chunks[j]);
-            }
-        }
-            if (counter === 11) {
-                torData = torArray.filter(function(item, pos) {
+                    }
+                }
+                if (counter === 11) {
+                    torData = torArray.filter(function(item, pos) {
                     return torArray.indexOf(item) == pos;
-            })
-                console.log('//////////////////////////////////////////////////////////////////////////')
-                console.log(torData);
-                return torData;
-            }
-            //return chunks;
+                    })
+                    console.log(torData);
+                    storeRPM(torData);
+                }
         })
     }
 }
 
 function getBBref(url) {
+    let testArray = []
     axios.get(url)
     .then(response=> {
         let $ = cheerio.load(response.data.split('all_advanced')[1].split('-->')[0].split('<!--')[1]);
-        //console.log(response.data.split('all_advanced')[1].split('-->')[0].split('<!--')[1]);
-        let data = $('tr')
-        .map((index, element)=> $(element).text()).get();
-        //data.splice(0,1);
-        //data.splice(14,1);
-        console.log(data);
-        return data
+        let data = $('table')
+            .find('tr')
+            .map((i, row) => {
+                db.dropCollection("bbrs", function(err, result) {
+                    assert.equal(null, err);})
+                let newBBR = new BBR (
+                    {
+                        name: $(row.children[1]).text(),
+                        OWS: $(row.children[18]).text(),
+                        DWS: $(row.children[19]).text(),
+                        WS: $(row.children[20]).text(),
+                        WS48: $(row.children[21]).text(),
+                        OBPM: $(row.children[23]).text(),
+                        DBPM: $(row.children[24]).text(),
+                        BPM: $(row.children[25]).text(),
+                        VORP: $(row.children[26]).text(),
+                    }
+                );
+                newBBR.save()
+                .then(bbr=> {
+                    console.log('BBR object saved')
+                })
+            })
     })
-    //.then(data=>{
-    //    console.log(data);
-    //})
+
 }
 
 function getNBA(){
-    nba.stats.teamOnOffCourtStats({TeamID: 1610612761, PerMode: 'Per100Possessions', Season: '2017-18', MeasureType: 'Advanced'}).then(res => {
-        console.log(res)
-      });
-    /*return axios.get(url, {
-        params: {
-            DateFrom: null,
-            DateTo: null,
-            GameSegment: null,
-            LastNGames: null,
-            LeagueID: null,
-            Location: null,
-            MeasureType: null,
-            Month: null,
-            OpponentTeamID: null,
-            Outcome: null,
-            PaceAdjust: null,
-            Period: null,
-            PerMode: null,
-            PlusMinus: null,
-            Rank: null,
-            Season: null,
-            SeasonSegment: null,
-            SeasonType: null,
-            ShotClockRange: null,
-            TeamID: 1610612761,
-            VsConference: null,
-            VsDivision: null
-        }
-      })
-      .then(response=>{
-          console.log(response.data)
-      })*/
+    nba.stats.teamOnOffCourtStats({TeamID: 1610612761, PerMode: 'Per100Possessions', Season: '2017-18', MeasureType: 'Advanced'})
+    .then(res => {
+        //let nbaData=res.PlayersOffCourtTeamPlayerOnOffDetails; console.log(nbaData[1])})
+        db.dropCollection("onoffs", function(err, result) {
+            assert.equal(null, err);})
+            for (let i=0; i<res.PlayersOnCourtTeamPlayerOnOffDetails.length; i++){
+                let newOnOff = new OnOff({
+            name: res.PlayersOnCourtTeamPlayerOnOffDetails[i].vs_player_name,
+            onOffense: res.PlayersOnCourtTeamPlayerOnOffDetails[i].off_rating,
+            onDefense: res.PlayersOnCourtTeamPlayerOnOffDetails[i].def_rating,
+            onNet: res.PlayersOnCourtTeamPlayerOnOffDetails[i].net_rating,
+            offOffense: res.PlayersOffCourtTeamPlayerOnOffDetails[i].off_rating,
+            offDefense: res.PlayersOffCourtTeamPlayerOnOffDetails[i].def_rating,
+            offNet: res.PlayersOffCourtTeamPlayerOnOffDetails[i].net_rating
+        });
+        newOnOff.save()
+        .then(onoff => {
+            console.log('On/Off object created.')
+        })
+    }
+})
 }
 
+
 //getRPM(rpmURL);
+//sortRPM(rpmURL);
 //getBBref(bbRefURL);
 getNBA();
+
+
+function storeRPM(torData) {
+    for (let i = 0; i<torData.length; i++) {
+            let newRPM = RPM(
+                {
+                    name: torData[i][1],
+                    oRPM: torData[i][5],
+                    dRPM: torData[i][6],
+                    RPM: torData[i][7],
+                    wins: torData[i][8]
+                }
+            );
+            newRPM.save()
+            .then(rpm => {
+                console.log('RPM object created.')
+            })
+    }
+}
