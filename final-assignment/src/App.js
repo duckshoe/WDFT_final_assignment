@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Switch, Route} from 'react-router-dom'
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Onoff from './components/Onoff';
+import OnOff from './components/Onoff';
 import AdvStats from './components/AdvStats';
 
 class App extends Component {
@@ -16,7 +16,8 @@ class App extends Component {
       BBRef: [],
       RPM: [],
       OnOff: [],
-      Descending: null
+      Descending: null,
+      Sorted: null
         
     }
   }
@@ -56,6 +57,7 @@ class App extends Component {
         }
         this.setState({
           Descending: true,
+          Sorted: c,
           BBRef: this.state.BBRef.sort(compare)
         })
       } else {
@@ -68,19 +70,21 @@ class App extends Component {
         }
         this.setState({
           Descending: false,
+          Sorted: c,
           BBRef: this.state.BBRef.sort(compare)
         })
       }
     //this.setState({
      //BBRef: this.state.BBRef.sort(compare)
     //})
-    console.log(this.state.Descending)
+    //console.log(this.state.Descending)
   }
   render() {
     return (
       <div className="App Container">
         <Header />
-        <Route exact path ='/'render={(props) => <AdvStats descending={this.state.Descending} sortRow={this.sortRow} bbref={this.state.BBRef} {...props}/>} />
+        <Route exact path ='/'render={(props) => <AdvStats sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} bbref={this.state.BBRef} {...props}/>} />
+        <Route path='/onoff' render={(props) => <OnOff sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} onoff={this.state.OnOff} rpm={this.state.RPM} {...props} />} />
       </div>
     );
   }

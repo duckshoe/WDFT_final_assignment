@@ -17,58 +17,62 @@ import NavigationArrowDropUp from 'material-ui/svg-icons/navigation/arrow-drop-u
 class AdvStats extends Component {
 
     render() {
+        console.log(this.props.descending);
         return (
             <div>
-            {/*{this.props.bbref.map((player, i)=>{
-                return	( <div>*/}
-                 <MuiThemeProvider>
-                            <Table>
-                                <TableHeader
-                                adjustForCheckbox={false}
-                                displaySelectAll={false}>
-                                    <TableRow
-                                     onCellClick={(e) => this.props.sortRow(e)}>
-                                        <TableRowColumn data-key='name'>Name</TableRowColumn>
+                <MuiThemeProvider>
+                    <Table>
+                        <TableHeader
+                        adjustForCheckbox={false}
+                        displaySelectAll={false}>
+                            <TableRow
+                            onCellClick={(e) => this.props.sortRow(e)}>
+                                        <TableRowColumn data-key='name'>Name
+                                        {this.props.sorted === "Name" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
                                         <TableRowColumn data-key='OWS'>OWS
-                                        {(this.props.Descending === false) ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />}
+                                        {this.props.sorted === "OWS" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }
                                         </TableRowColumn>
-                                        <TableRowColumn data-key='DWS'>DWS</TableRowColumn>
-                                        <TableRowColumn data-key='WS'>WS</TableRowColumn>
-                                        <TableRowColumn data-key='WS48'>WS/48</TableRowColumn>
-                                        <TableRowColumn data-key='OBPM'>OBPM</TableRowColumn>
-                                        <TableRowColumn data-key='DBPM'>DBPM</TableRowColumn>
-                                        <TableRowColumn data-key='BPM'>BPM</TableRowColumn>
-                                        <TableRowColumn data-key='VORP'>VORP</TableRowColumn>
+                                        <TableRowColumn data-key='DWS'>DWS
+                                        {this.props.sorted === "OWS" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                        <TableRowColumn data-key='WS'>WS
+                                        {this.props.sorted === "WS" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                        <TableRowColumn data-key='WS48'>WS/48
+                                        {this.props.sorted === "WS48" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                        <TableRowColumn data-key='OBPM'>OBPM
+                                        {this.props.sorted === "OBPM" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                        <TableRowColumn data-key='DBPM'>DBPM
+                                        {this.props.sorted === "DBPM" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                        <TableRowColumn data-key='BPM'>BPM
+                                        {this.props.sorted === "BPM" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                        <TableRowColumn data-key='VORP'>VORP
+                                        {this.props.sorted === "VORP" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
                                     </TableRow>
                                 </TableHeader>
-                                <TableBody 
-                                displayRowCheckbox={false}
-                                showRowHover={true}
-                                >
-                                    {this.props.bbref.map((player, i) =>{
-                                        return(
-                                            <TableRow>
-                                                <TableRowColumn>{player.name}</TableRowColumn>
-                                                <TableRowColumn>{player.OWS}</TableRowColumn>
-                                                <TableRowColumn>{player.DWS}</TableRowColumn>
-                                                <TableRowColumn>{player.WS}</TableRowColumn>
-                                                <TableRowColumn>{player.WS48}</TableRowColumn>
-                                                <TableRowColumn>{player.OBPM}</TableRowColumn>
-                                                <TableRowColumn>{player.DBPM}</TableRowColumn>
-                                                <TableRowColumn>{player.BPM}</TableRowColumn>
-                                                <TableRowColumn>{player.VORP}</TableRowColumn>
-                                            </TableRow>
+                            <TableBody 
+                            displayRowCheckbox={false}
+                            showRowHover={true}
+                            >
+                                {this.props.bbref.map((player, i) =>{
+                                    return(
+                                        <TableRow>
+                                            <TableRowColumn>{player.name}</TableRowColumn>
+                                            <TableRowColumn>{player.OWS}</TableRowColumn>
+                                            <TableRowColumn>{player.DWS}</TableRowColumn>
+                                            <TableRowColumn>{player.WS}</TableRowColumn>
+                                            <TableRowColumn>{player.WS48}</TableRowColumn>
+                                            <TableRowColumn>{player.OBPM}</TableRowColumn>
+                                            <TableRowColumn>{player.DBPM}</TableRowColumn>
+                                            <TableRowColumn>{player.BPM}</TableRowColumn>
+                                            <TableRowColumn>{player.VORP}</TableRowColumn>
+                                        </TableRow>
                                         )
-                                    })}
+                                })}
                                 </TableBody>
                             </Table>
                         </MuiThemeProvider>
                          </div>
                          )
                 }
-        
-    
-
 }
 
 export default AdvStats;
