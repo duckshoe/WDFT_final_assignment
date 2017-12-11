@@ -42,6 +42,39 @@ app.listen(8080, ()=>{
     console.log('listening on port 8080')
 });
 
+app.get('/BBRef', (req, res) => {
+    BBR.find({})
+    .then(object => {
+        res.json(object);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json({err});
+    })
+})
+
+app.get('/onoff', (req, res) => {
+    OnOff.find({})
+    .then(object => {
+        res.json(object);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json({err});
+    })
+})
+
+app.get('/rpm', (req, res) => {
+    RPM.find({})
+    .then(object => {
+        res.json(object);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400).json({err});
+    })
+})
+
 function getRPM(url) {
     let counter = 0;
     let results = [];
@@ -105,8 +138,7 @@ function getNBA(){
     nba.stats.teamOnOffCourtStats({TeamID: 1610612761, PerMode: 'Per100Possessions', Season: '2017-18', MeasureType: 'Advanced'})
     .then(res => {
         //let nbaData=res.PlayersOffCourtTeamPlayerOnOffDetails; console.log(nbaData[1])})
-        db.dropCollection("onoffs", function(err, result) {
-            assert.equal(null, err);})
+        db.dropCollection("onoffs", function(err, result) {assert.equal(null, err);})
             for (let i=0; i<res.PlayersOnCourtTeamPlayerOnOffDetails.length; i++){
                 let newOnOff = new OnOff({
             name: res.PlayersOnCourtTeamPlayerOnOffDetails[i].vs_player_name,
@@ -126,13 +158,14 @@ function getNBA(){
 }
 
 
-//getRPM(rpmURL);
+getRPM(rpmURL);
 //sortRPM(rpmURL);
-//getBBref(bbRefURL);
+getBBref(bbRefURL);
 getNBA();
 
 
 function storeRPM(torData) {
+    db.dropCollection("rpms", function(err, result) {assert.equal(null, err);})
     for (let i = 0; i<torData.length; i++) {
             let newRPM = RPM(
                 {
