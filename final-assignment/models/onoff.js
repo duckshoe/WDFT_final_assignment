@@ -30,6 +30,10 @@ const OnOffSchema = new Schema({
     offNet: {
         type: Number,
         require: true
+    },
+    totalNet: {
+        type: Number,
+        require: true
     }
 })
 

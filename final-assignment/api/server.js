@@ -95,7 +95,7 @@ function getRPM(url) {
                     torData = torArray.filter(function(item, pos) {
                     return torArray.indexOf(item) == pos;
                     })
-                    console.log(torData);
+                    //console.log(torData);
                     storeRPM(torData);
                 }
         })
@@ -137,9 +137,10 @@ function getBBref(url) {
 function getNBA(){
     nba.stats.teamOnOffCourtStats({TeamID: 1610612761, PerMode: 'Per100Possessions', Season: '2017-18', MeasureType: 'Advanced'})
     .then(res => {
-        //let nbaData=res.PlayersOffCourtTeamPlayerOnOffDetails; console.log(nbaData[1])})
+        //console.log(res);
         db.dropCollection("onoffs", function(err, result) {assert.equal(null, err);})
             for (let i=0; i<res.PlayersOnCourtTeamPlayerOnOffDetails.length; i++){
+            let totalNet = (res.PlayersOnCourtTeamPlayerOnOffDetails[i].net_rating - res.PlayersOffCourtTeamPlayerOnOffDetails[i].net_rating).toFixed(3);
                 let newOnOff = new OnOff({
             name: res.PlayersOnCourtTeamPlayerOnOffDetails[i].vs_player_name,
             onOffense: res.PlayersOnCourtTeamPlayerOnOffDetails[i].off_rating,
@@ -147,7 +148,8 @@ function getNBA(){
             onNet: res.PlayersOnCourtTeamPlayerOnOffDetails[i].net_rating,
             offOffense: res.PlayersOffCourtTeamPlayerOnOffDetails[i].off_rating,
             offDefense: res.PlayersOffCourtTeamPlayerOnOffDetails[i].def_rating,
-            offNet: res.PlayersOffCourtTeamPlayerOnOffDetails[i].net_rating
+            offNet: res.PlayersOffCourtTeamPlayerOnOffDetails[i].net_rating,
+            totalNet: totalNet
         });
         newOnOff.save()
         .then(onoff => {

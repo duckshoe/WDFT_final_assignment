@@ -5,7 +5,7 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Switch, Route} from 'react-router-dom'
 import Header from './components/Header';
-import Footer from './components/Footer';
+import RPM from './components/RPM';
 import OnOff from './components/Onoff';
 import AdvStats from './components/AdvStats';
 
@@ -17,7 +17,8 @@ class App extends Component {
       RPM: [],
       OnOff: [],
       Descending: null,
-      Sorted: null
+      Sorted: null,
+      open: false
         
     }
   }
@@ -44,7 +45,7 @@ class App extends Component {
       console.log(this.state.OnOff)
     })
   }
-  sortRow=(e)=> {
+  sortRow=(e, value)=> {
     //console.log(e.target.getAttribute('data-key'));
     let c = e.target.getAttribute('data-key');
       if (!this.state.Descending) {
@@ -58,7 +59,7 @@ class App extends Component {
         this.setState({
           Descending: true,
           Sorted: c,
-          BBRef: this.state.BBRef.sort(compare)
+          [`${value}`]: this.state[`${value}`].sort(compare)
         })
       } else {
         function compare(a, b) {
@@ -71,20 +72,21 @@ class App extends Component {
         this.setState({
           Descending: false,
           Sorted: c,
-          BBRef: this.state.BBRef.sort(compare)
+          [`${value}`]: this.state[`${value}`].sort(compare)
         })
       }
-    //this.setState({
-     //BBRef: this.state.BBRef.sort(compare)
-    //})
-    //console.log(this.state.Descending)
   }
+  handleOpen = () => this.setState({open: !this.state.open});
+  
+  handleClose = () => this.setState({open: false});
+
   render() {
     return (
       <div className="App Container">
-        <Header />
+        <Header handleOpen={this.handleOpen} handleClose={this.handleClose} open={this.state.open}/>
         <Route exact path ='/'render={(props) => <AdvStats sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} bbref={this.state.BBRef} {...props}/>} />
         <Route path='/onoff' render={(props) => <OnOff sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} onoff={this.state.OnOff} rpm={this.state.RPM} {...props} />} />
+        <Route path='/rpm' render={(props) => <RPM sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} rpm={this.state.RPM} {...props} />} />
       </div>
     );
   }
