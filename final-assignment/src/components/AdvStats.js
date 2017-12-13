@@ -12,6 +12,8 @@ import {
   } from 'material-ui/Table';
 import NavigationArrowDropDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import NavigationArrowDropUp from 'material-ui/svg-icons/navigation/arrow-drop-up';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 import {Bar} from 'react-chartjs-2';
 
 class AdvStats extends Component {
@@ -76,7 +78,14 @@ class AdvStats extends Component {
         }
         return (
             <div>
-                <Bar data={data} />
+                <MuiThemeProvider>
+                <DropDownMenu onChange={this.props.handleChange} value={this.props.value}>
+                    <MenuItem value={1} primaryText="Table" />
+                    <MenuItem value={2} primaryText="Chart" />
+                </DropDownMenu>
+                </MuiThemeProvider>
+                {this.props.value === 2 ? (
+                <Bar data={data} />) : (
                 <MuiThemeProvider>
                     <Table>
                         <TableHeader
@@ -127,6 +136,7 @@ class AdvStats extends Component {
                                 </TableBody>
                             </Table>
                         </MuiThemeProvider>
+                        )}
                          </div>
                          )
                 }

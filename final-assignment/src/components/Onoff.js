@@ -12,19 +12,70 @@ import {
   } from 'material-ui/Table';
 import NavigationArrowDropDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import NavigationArrowDropUp from 'material-ui/svg-icons/navigation/arrow-drop-up';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import {Bar} from 'react-chartjs-2';
 
 class OnOff extends Component {
 
     render() {
+        let dataLabels = this.props.onoff.map((player, i)=>{
+            return player.name
+        })
+        let onOffense = this.props.onoff.map((player, i)=>{
+            return player.onOffense
+        })
+        let onDefense = this.props.onoff.map((player, i)=>{
+            return player.onDefense
+        })
+        let onNet = this.props.onoff.map((player, i)=>{
+            return player.onNet
+        })
+        let offOffense = this.props.onoff.map((player, i)=>{
+            return player.offOffense
+        })
+        let offDefense = this.props.onoff.map((player, i)=>{
+            return player.offDefense
+        })
+        let offNet = this.props.onoff.map((player, i)=>{
+            return player.offNet
+        })
+        let totalNet = this.props.onoff.map((player, i)=>{
+            return player.totalNet
+        })
+        const data ={
+            labels: dataLabels,
+            datasets:[
+                {label: 'Net(On)',
+                backgroundColor: 'yellow',
+                data: onNet
+                },
+                {label: 'Net(Off)',
+                backgroundColor: 'orange',
+                data: offNet
+                },
+                {label: 'Net(Total)',
+                backgroundColor: 'black',
+                data: totalNet}
+            ]
+        }
         return(
         <div>
-        <MuiThemeProvider>
+            <MuiThemeProvider>
+                <DropDownMenu onChange={this.props.handleChange} value={this.props.value}>
+                    <MenuItem value={1} primaryText="Table" />
+                    <MenuItem value={2} primaryText="Chart" />
+                </DropDownMenu>
+                </MuiThemeProvider>
+                {this.props.value === 2 ? (
+                <Bar data={data} />) : (
+            <MuiThemeProvider>
             <Table>
                 <TableHeader
                 adjustForCheckbox={false}
                 displaySelectAll={false}>
                     <TableRow
-                        onCellClick={(e) => this.props.sortRow(e)}>
+                        onCellClick={(e) => this.props.sortRow(e, 'OnOff')}>
                                 <TableRowColumn data-key='name'>Name
                                 {this.props.sorted === "Name" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
                                 <TableRowColumn data-key='onOffense'>oRTG(On)
@@ -39,9 +90,9 @@ class OnOff extends Component {
                                 <TableRowColumn data-key='offDefense'>dRTG(off)
                                 {this.props.sorted === "offDefense" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
                                 <TableRowColumn data-key='offNet'>netRTG(off)
-                                {this.props.sorted === "OffNet" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                <TableRowColumn data-key='BPM'>netRTG(total)
-                                {this.props.sorted === "BPM" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                {this.props.sorted === "offNet" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                <TableRowColumn data-key='totalNet'>netRTG(total)
+                                {this.props.sorted === "totalNet" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
                             </TableRow>
                         </TableHeader>
                     <TableBody 
@@ -59,13 +110,14 @@ class OnOff extends Component {
                                     <TableRowColumn>{player.offOffense}</TableRowColumn>
                                     <TableRowColumn>{player.offDefense}</TableRowColumn>
                                     <TableRowColumn>{player.offNet}</TableRowColumn>
-                                    <TableRowColumn>{netTotal}</TableRowColumn>
+                                    <TableRowColumn>{player.totalNet}</TableRowColumn>
                                 </TableRow>
                             )
                         })}
                         </TableBody>
                     </Table>
                 </MuiThemeProvider>
+                )}
                  </div>
         )
     }

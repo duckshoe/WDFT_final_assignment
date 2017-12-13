@@ -18,7 +18,8 @@ class App extends Component {
       OnOff: [],
       Descending: null,
       Sorted: null,
-      open: false
+      open: false,
+      value: 1
         
     }
   }
@@ -80,13 +81,17 @@ class App extends Component {
   
   handleClose = () => this.setState({open: false});
 
+  handleChange = (event, index, value) => {
+    this.setState({value})
+  }
+
   render() {
     return (
       <div className="App Container">
         <Header handleOpen={this.handleOpen} handleClose={this.handleClose} open={this.state.open}/>
-        <Route exact path ='/'render={(props) => <AdvStats sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} bbref={this.state.BBRef} {...props}/>} />
-        <Route path='/onoff' render={(props) => <OnOff sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} onoff={this.state.OnOff} rpm={this.state.RPM} {...props} />} />
-        <Route path='/rpm' render={(props) => <RPM sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} rpm={this.state.RPM} {...props} />} />
+        <Route exact path ='/'render={(props) => <AdvStats value={this.state.value} sorted={this.state.Sorted} descending={this.state.Descending} handleChange={this.handleChange} sortRow={this.sortRow} bbref={this.state.BBRef} {...props}/>} />
+        <Route path='/onoff' render={(props) => <OnOff value={this.state.value} sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} handleChange={this.handleChange} onoff={this.state.OnOff} rpm={this.state.RPM} {...props} />} />
+        <Route path='/rpm' render={(props) => <RPM value={this.state.value} sorted={this.state.Sorted} descending={this.state.Descending} sortRow={this.sortRow} handleChange={this.handleChange} rpm={this.state.RPM} {...props} />} />
       </div>
     );
   }
