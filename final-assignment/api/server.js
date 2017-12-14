@@ -16,7 +16,7 @@ var rpmURL = "http://www.espn.com/nba/statistics/rpm/_/page/";
 var bbRefURL = "https://www.basketball-reference.com/teams/TOR/2018.html";
 var nbaURL = 'https://stats.nba.com/stats/teamplayeronoffdetails';
 
-mongoose.connect('mongodb://localhost/data/db/');
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost/data/db/');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -38,8 +38,8 @@ app.use((req, res, next) => {
     next();
 });
   
-app.listen(8080, ()=>{
-    console.log('listening on port 8080')
+app.listen(process.env.PORT || 8080, ()=>{
+    console.log(`Server Started on Port ${process.env.PORT || 8080}`);
 });
 
 app.get('/BBRef', (req, res) => {

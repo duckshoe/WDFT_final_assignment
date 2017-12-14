@@ -2,6 +2,7 @@
   "name": "final-assignment",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "axios": "^0.17.1",
     "chart.js": "^2.7.1",
@@ -19,7 +20,10 @@
     "request": "^2.83.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run build; npm run server",
+    "client": "react-scripts start",
+    "both": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node api/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
