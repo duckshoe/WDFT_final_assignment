@@ -4,6 +4,7 @@
     "description": "Final assignment",
     "main": "index.js",
     "scripts": {
+      "install": "(cd final-assignment && npm install",
       "start": "(cd final-assignment && npm start)",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
