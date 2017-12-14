@@ -42,6 +42,10 @@ app.listen(process.env.PORT || 8080, ()=>{
     console.log(`Server Started on Port ${process.env.PORT || 8080}`);
 });
 
+app.get('*', (req, res) => {
+    res.sendFile('index.html',{root: __dirname + './../build'});
+});
+
 app.get('/BBRef', (req, res) => {
     BBR.find({})
     .then(object => {
