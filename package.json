@@ -1,6 +1,7 @@
 {
     "name": "final-assignment",
     "version": "1.0.0",
+    "proxy": "http://localhost:8080",
     "description": "Final assignment",
     "main": "index.js",
     "dependencies": {
