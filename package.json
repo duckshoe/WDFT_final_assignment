@@ -1,19 +1,20 @@
 {
-  "name": "final-assignment",
-  "version": "1.0.0",
-  "description": "Final assignment",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/duckshoe/WDFT_final_assignment.git"
-  },
-  "author": "Gavin MacPherson",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/duckshoe/WDFT_final_assignment/issues"
-  },
-  "homepage": "https://github.com/duckshoe/WDFT_final_assignment#readme"
-}
+    "name": "final-assignment",
+    "version": "1.0.0",
+    "description": "Final assignment",
+    "main": "index.js",
+    "scripts": {
+      "start": "(cd final-assignment && npm start)",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/duckshoe/WDFT_final_assignment.git"
+    },
+    "author": "Gavin MacPherson",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/duckshoe/WDFT_final_assignment/issues"
+    },
+    "homepage": "https://github.com/duckshoe/WDFT_final_assignment#readme"
+  }
