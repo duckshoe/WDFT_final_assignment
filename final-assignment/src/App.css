@@ -27,7 +27,19 @@
   to { transform: rotate(360deg); }
 }
 
+.content-adv p {
+  text-align: left;
+  padding: 10px;
+}
+.move-right{
+  margin-left: 95px;
+}
 .content p {
   text-align: left;
-  padding: 25px;
+  padding: 0px;
+  margin-right: 0px
+}
+.no-space {
+  width: 250px;
+  padding: 0px;
 }

@@ -88,13 +88,13 @@ class AdvStats extends Component {
                 </DropDownMenu>
                 </MuiThemeProvider>
                 </div>
-                <div className='content'>
+                <div className='content-adv'>
                     <div>
                     <h2>About the Numbers</h2>
                     </div>
                     <Row className="show-grid">
                     
-                        <Col xs={12} md={4}>
+                        <Col xs={12} md={5} className='move-right'>
                             <p>OWS: Offensive Win Shares
                             <br />
                             DWS: Defensive Win Shares
@@ -106,8 +106,8 @@ class AdvStats extends Component {
                             Information about how Win Shares are calculated can be found <a href='https://www.basketball-reference.com/about/ws.html'>here.</a>
                             </p>
                         </Col>
-                        <Col xs={12} md={2}/> 
-                        <Col xs={12} md={4}>
+
+                        <Col xs={12} md={5}>
                             <p>OBPM: Offensive Box Score Plus-Minus
                             <br />
                             DBPM: Defensive Box Score Plus-Minus
@@ -121,34 +121,62 @@ class AdvStats extends Component {
                         </Col>
                     </Row>
                 </div>
-                {this.props.value === 2 ? (
-                <Bar data={data} />) : (
+                {this.props.value === 2 ? (<Bar data={data} />) : (
                 <MuiThemeProvider>
                     <Table>
                         <TableHeader
-                        adjustForCheckbox={false}
-                        displaySelectAll={false}>
-                            <TableRow
-                            onCellClick={(e) => this.props.sortRow(e, 'BBRef')}>
-                                        <TableRowColumn data-key='name'>Name
-                                        {this.props.sorted === "Name" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                        <TableRowColumn data-key='OWS'>OWS
-                                        {this.props.sorted === "OWS" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }
+                            adjustForCheckbox={false}
+                            displaySelectAll={false}>
+                                <TableRow
+                                    onCellClick={(e) => this.props.sortRow(e, 'BBRef')}>
+                                        <TableRowColumn data-key='name'>
+                                            Name {this.props.sorted === "Name" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />)
+                                                : null }
                                         </TableRowColumn>
-                                        <TableRowColumn data-key='DWS'>DWS
-                                        {this.props.sorted === "DWS" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                        <TableRowColumn data-key='WS'>WS
-                                        {this.props.sorted === "WS" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                        <TableRowColumn data-key='WS48'>WS/48
-                                        {this.props.sorted === "WS48" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                        <TableRowColumn data-key='OBPM'>OBPM
-                                        {this.props.sorted === "OBPM" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                        <TableRowColumn data-key='DBPM'>DBPM
-                                        {this.props.sorted === "DBPM" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                        <TableRowColumn data-key='BPM'>BPM
-                                        {this.props.sorted === "BPM" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
-                                        <TableRowColumn data-key='VORP'>VORP
-                                        {this.props.sorted === "VORP" ? (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />): null }</TableRowColumn>
+                                        <TableRowColumn data-key='OWS'>
+                                            OWS { this.props.sorted === "OWS" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />)
+                                                : null }
+                                        </TableRowColumn>
+                                        <TableRowColumn data-key='DWS'>
+                                            DWS {this.props.sorted === "DWS" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : 
+                                                <NavigationArrowDropUp />)
+                                                : null }
+                                         </TableRowColumn>
+                                        <TableRowColumn data-key='WS'>
+                                            WS {this.props.sorted === "WS" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : 
+                                                <NavigationArrowDropUp />)
+                                                : null }
+                                        </TableRowColumn>
+                                        <TableRowColumn data-key='WS48'>
+                                            WS/48 {this.props.sorted === "WS48" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : 
+                                                <NavigationArrowDropUp />)
+                                                : null }
+                                        </TableRowColumn>
+                                        <TableRowColumn data-key='OBPM'>
+                                            OBPM {this.props.sorted === "OBPM" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />)
+                                                : null }
+                                        </TableRowColumn>
+                                        <TableRowColumn data-key='DBPM'>
+                                            DBPM {this.props.sorted === "DBPM" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />)
+                                                : null }
+                                        </TableRowColumn>
+                                        <TableRowColumn data-key='BPM'>
+                                            BPM {this.props.sorted === "BPM" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />)
+                                                : null }
+                                        </TableRowColumn>
+                                        <TableRowColumn data-key='VORP'>
+                                            VORP {this.props.sorted === "VORP" ? 
+                                                (this.props.descending ? <NavigationArrowDropDown /> : <NavigationArrowDropUp />)
+                                                : null }
+                                        </TableRowColumn>
                                     </TableRow>
                                 </TableHeader>
                             <TableBody 
@@ -172,10 +200,10 @@ class AdvStats extends Component {
                                 })}
                                 </TableBody>
                             </Table>
-                        </MuiThemeProvider>
-                        )}
-                         </div>
-                         )
+                    </MuiThemeProvider>
+                    )}
+            </div>
+                )
                 }
 }
 

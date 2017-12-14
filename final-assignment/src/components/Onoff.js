@@ -76,7 +76,7 @@ class OnOff extends Component {
             <h2>About the Numbers</h2>
             </div>
             <Row className="show-grid">
-                <Col xs={12} md={4}>
+                <Col xs={12} md={3} className='no-space'>
                     <p>oRTG(on): Offensive Rating On Court
                     <br />
                     dRTG(on): Defensive Rating On Court
@@ -86,8 +86,7 @@ class OnOff extends Component {
                     netRTG(total): netRTG(on)-netRTG(off)
                     </p>
                 </Col>
-                <Col xs={12} md={2}/> 
-                <Col xs={12} md={4}>
+                <Col xs={12} md={3}>
                     <p>oRTG(off): Offensive Rating Off Court
                     <br />
                     dRTG(off): Defensive Rating Off Court
