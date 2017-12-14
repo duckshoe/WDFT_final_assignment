@@ -8,6 +8,22 @@
       "start": "(cd final-assignment && npm start)",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
+    "dependencies": {
+        "axios": "^0.17.1",
+        "chart.js": "^2.7.1",
+        "cheerio": "^1.0.0-rc.2",
+        "express": "^4.16.2",
+        "material-ui": "^0.20.0",
+        "mongoose": "^4.13.6",
+        "nba.js": "^0.5.0",
+        "react": "^16.2.0",
+        "react-bootstrap": "^0.31.5",
+        "react-chartjs-2": "^2.6.4",
+        "react-dom": "^16.2.0",
+        "react-router-dom": "^4.2.2",
+        "react-scripts": "1.0.17",
+        "request": "^2.83.0"
+      },
     "repository": {
       "type": "git",
       "url": "git+https://github.com/duckshoe/WDFT_final_assignment.git"
