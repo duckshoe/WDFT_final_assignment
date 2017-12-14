@@ -3,11 +3,6 @@
     "version": "1.0.0",
     "description": "Final assignment",
     "main": "index.js",
-    "scripts": {
-      "install": "(cd final-assignment && npm install",
-      "start": "(cd final-assignment && npm start)",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
     "dependencies": {
         "axios": "^0.17.1",
         "chart.js": "^2.7.1",
@@ -24,6 +19,10 @@
         "react-scripts": "1.0.17",
         "request": "^2.83.0"
       },
+    "scripts": {
+      "start": "(cd final-assignment && npm start)",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
     "repository": {
       "type": "git",
       "url": "git+https://github.com/duckshoe/WDFT_final_assignment.git"
