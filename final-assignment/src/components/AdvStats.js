@@ -15,6 +15,8 @@ import NavigationArrowDropUp from 'material-ui/svg-icons/navigation/arrow-drop-u
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Bar} from 'react-chartjs-2';
+import {Col} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 
 class AdvStats extends Component {
 
@@ -50,21 +52,21 @@ class AdvStats extends Component {
             labels: dataLabels,
             datasets:[
                 {label: 'OWS',
-                backgroundColor: 'green',
+                backgroundColor: 'red',
                 data: OWS
                 },
                 {label: 'DWS',
-                backgroundColor: 'grey',
+                backgroundColor: 'gold',
                 data: DWS
                 },
                 {label: 'WS',
                 backgroundColor: 'black',
                 data: WS},
                 {label: 'OBPM',
-                backgroundColor: 'yellow',
+                backgroundColor: 'crimson',
                 data: OBPM
                 },
-                {label: 'DWS',
+                {label: 'DBPM',
                 backgroundColor: 'orange',
                 data: DBPM
                 },
@@ -86,8 +88,38 @@ class AdvStats extends Component {
                 </DropDownMenu>
                 </MuiThemeProvider>
                 </div>
-                <div>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                <div className='content'>
+                    <div>
+                    <h2>About the Numbers</h2>
+                    </div>
+                    <Row className="show-grid">
+                    
+                        <Col xs={12} md={4}>
+                            <p>OWS: Offensive Win Shares
+                            <br />
+                            DWS: Defensive Win Shares
+                            <br />
+                            WS: Win Shares
+                            <br />
+                            WS/48: Win Shares per 48 minutes
+                            <br />
+                            Information about how Win Shares are calculated can be found <a href='https://www.basketball-reference.com/about/ws.html'>here.</a>
+                            </p>
+                        </Col>
+                        <Col xs={12} md={2}/> 
+                        <Col xs={12} md={4}>
+                            <p>OBPM: Offensive Box Score Plus-Minus
+                            <br />
+                            DBPM: Defensive Box Score Plus-Minus
+                            <br />
+                            BPM: Box Score Plus-Minus
+                            <br />
+                            VORP: Value Over Replacement Player
+                            <br />
+                            Information about how BPM/VORP are calculated can be found <a href='https://www.basketball-reference.com/about/bpm.html'>here.</a>
+                            </p>
+                        </Col>
+                    </Row>
                 </div>
                 {this.props.value === 2 ? (
                 <Bar data={data} />) : (

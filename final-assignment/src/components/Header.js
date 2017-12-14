@@ -13,24 +13,25 @@ class Header extends Component {
         return(
         <MuiThemeProvider>
             <AppBar 
-            style={{backgroundColor: grey900}}     
-            title="I'll Have a Better Title Eventually I Promise" iconClassNameRight="muidocs-icon-navigation-expand-more"
-            onLeftIconButtonClick={this.props.handleOpen}/>
+                style={{backgroundColor: grey900}}     
+                title="I'll Have a Better Title Eventually I Promise" 
+                iconClassNameRight="muidocs-icon-navigation-expand-more"
+                onLeftIconButtonClick={this.props.handleOpen}
+            />
             <Drawer
-            docked={false}
-            width={200}
-            open={this.props.open}
-            //onLeftIconButtonClick={(open) => this.setState({open})}
+                docked={false}
+                width={200}
+                open={this.props.open}
             >
-            <Link to='./'>
-            <MenuItem onClick={this.props.handleClose}>Box Score Stats</MenuItem>
-            </Link>
-            <Link to='./onoff'>
-            <MenuItem onClick={this.props.handleClose}>On/Off Stats</MenuItem>
-            </Link>
-            <Link to='./rpm'>
-            <MenuItem onClick={this.props.handleClose}>RPM Stats</MenuItem>
-            </Link>
+                <Link to='./'>
+                    <MenuItem onClick={this.props.handleClose}>Box Score Stats</MenuItem>
+                </Link>
+                <Link to='./onoff'>
+                    <MenuItem onClick={this.props.handleClose}>On/Off Stats</MenuItem>
+                </Link>
+                <Link to='./rpm'>
+                    <MenuItem onClick={this.props.handleClose}>RPM Stats</MenuItem>
+                </Link>
             </Drawer>
         </MuiThemeProvider>
         );

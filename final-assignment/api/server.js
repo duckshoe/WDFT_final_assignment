@@ -95,8 +95,22 @@ function getRPM(url) {
                     torData = torArray.filter(function(item, pos) {
                     return torArray.indexOf(item) == pos;
                     })
-                    //console.log(torData);
-                    storeRPM(torData);
+                    db.dropCollection("rpms", function(err, result) {assert.equal(null, err);})
+                    for (let i = 0; i<torData.length; i++) {
+                            let newRPM = RPM(
+                                {
+                                    name: torData[i][1],
+                                    oRPM: torData[i][5],
+                                    dRPM: torData[i][6],
+                                    RPM: torData[i][7],
+                                    wins: torData[i][8]
+                                }
+                            );
+                            newRPM.save()
+                            .then(rpm => {
+                                console.log('RPM object created.')
+                            })
+                    }
                 }
         })
     }
@@ -137,7 +151,6 @@ function getBBref(url) {
 function getNBA(){
     nba.stats.teamOnOffCourtStats({TeamID: 1610612761, PerMode: 'Per100Possessions', Season: '2017-18', MeasureType: 'Advanced'})
     .then(res => {
-        //console.log(res);
         db.dropCollection("onoffs", function(err, result) {assert.equal(null, err);})
             for (let i=0; i<res.PlayersOnCourtTeamPlayerOnOffDetails.length; i++){
             let totalNet = (res.PlayersOnCourtTeamPlayerOnOffDetails[i].net_rating - res.PlayersOffCourtTeamPlayerOnOffDetails[i].net_rating).toFixed(3);
@@ -158,29 +171,6 @@ function getNBA(){
     }
 })
 }
-
-
 getRPM(rpmURL);
-//sortRPM(rpmURL);
 getBBref(bbRefURL);
 getNBA();
-
-
-function storeRPM(torData) {
-    db.dropCollection("rpms", function(err, result) {assert.equal(null, err);})
-    for (let i = 0; i<torData.length; i++) {
-            let newRPM = RPM(
-                {
-                    name: torData[i][1],
-                    oRPM: torData[i][5],
-                    dRPM: torData[i][6],
-                    RPM: torData[i][7],
-                    wins: torData[i][8]
-                }
-            );
-            newRPM.save()
-            .then(rpm => {
-                console.log('RPM object created.')
-            })
-    }
-}

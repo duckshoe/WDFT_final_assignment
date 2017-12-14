@@ -15,6 +15,8 @@ import NavigationArrowDropUp from 'material-ui/svg-icons/navigation/arrow-drop-u
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Bar} from 'react-chartjs-2';
+import {Col} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 
 class OnOff extends Component {
 
@@ -47,11 +49,11 @@ class OnOff extends Component {
             labels: dataLabels,
             datasets:[
                 {label: 'Net(On)',
-                backgroundColor: 'yellow',
+                backgroundColor: 'red',
                 data: onNet
                 },
                 {label: 'Net(Off)',
-                backgroundColor: 'orange',
+                backgroundColor: 'gold',
                 data: offNet
                 },
                 {label: 'Net(Total)',
@@ -69,11 +71,35 @@ class OnOff extends Component {
                 </DropDownMenu>
                 </MuiThemeProvider>
             </div>
+            <div className='content'>
             <div>
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            <h2>About the Numbers</h2>
             </div>
-                {this.props.value === 2 ? (
-                <Bar data={data} />) : (
+            <Row className="show-grid">
+                <Col xs={12} md={4}>
+                    <p>oRTG(on): Offensive Rating On Court
+                    <br />
+                    dRTG(on): Defensive Rating On Court
+                    <br />
+                    netRTG(on): oRTG-dRTG On Court
+                    <br />
+                    netRTG(total): netRTG(on)-netRTG(off)
+                    </p>
+                </Col>
+                <Col xs={12} md={2}/> 
+                <Col xs={12} md={4}>
+                    <p>oRTG(off): Offensive Rating Off Court
+                    <br />
+                    dRTG(off): Defensive Rating Off Court
+                    <br />
+                    netRTG(off); oRTG-dRTG Off Court
+                    <br />
+                    </p>
+                </Col>
+            </Row>
+        </div>
+            {this.props.value === 2 ? (
+            <Bar data={data} />) : (
             <MuiThemeProvider>
             <Table>
                 <TableHeader

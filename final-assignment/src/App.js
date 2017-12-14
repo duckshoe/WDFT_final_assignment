@@ -47,7 +47,6 @@ class App extends Component {
     })
   }
   sortRow=(e, value)=> {
-    //console.log(e.target.getAttribute('data-key'));
     let c = e.target.getAttribute('data-key');
       if (!this.state.Descending) {
         function compare(a, b) {

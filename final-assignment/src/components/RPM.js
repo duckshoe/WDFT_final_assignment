@@ -15,6 +15,8 @@ import NavigationArrowDropUp from 'material-ui/svg-icons/navigation/arrow-drop-u
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Bar} from 'react-chartjs-2';
+import {Col} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 
 class RPM extends Component {
     render() {
@@ -37,7 +39,7 @@ class RPM extends Component {
             labels: dataLabels,
             datasets:[
                 {label: 'dRPM',
-                backgroundColor: 'blue',
+                backgroundColor: 'purple',
                 data: dRPM
                 },
                 {label: 'oRPM',
@@ -45,11 +47,11 @@ class RPM extends Component {
                 data: oRPM
                 },
                 {label: 'RPM',
-                backgroundColor: 'yello',
+                backgroundColor: 'gold',
                 data: RPM
                 },
                 {label: 'Wins',
-                backgroundColor: 'green',
+                backgroundColor: 'black',
                 data: wins
                 }
             ]
@@ -64,9 +66,28 @@ class RPM extends Component {
                 </DropDownMenu>
                 </MuiThemeProvider>
                 </div>
+                <div className='content'>
                 <div>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                <h2>About the Numbers</h2>
                 </div>
+                <Row className="show-grid">
+                    <Col xs={12} md={6}>
+                        <p>ORPM: Offensive Real Plus Minus
+                        <br />
+                        DRPM: Defensive Real Plus Minus
+                        <br />
+                        RPM: Real Plus Minus
+                        <br />
+                        Wins: Estimate of the number of wins that player is responsible for
+                        <br />
+                        An explanation of how Real Plus Minus works can be found <a href='http://www.espn.com/nba/story/_/id/10740818/introducing-real-plus-minus'>here.</a>
+                        </p>
+                    </Col>
+
+                    <Col xs={12} md={4} />
+                       
+                </Row>
+            </div>
                 {this.props.value === 2 ? (
                 <Bar data={data} />) : (
             <MuiThemeProvider>
@@ -111,7 +132,5 @@ class RPM extends Component {
                      </div>
             )
     }
-
 }
-
 export default RPM;
