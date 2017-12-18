@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import {Switch, Route} from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
     Table,
     TableBody,
-    TableFooter,
     TableHeader,
-    TableHeaderColumn,
     TableRow,
     TableRowColumn,
   } from 'material-ui/Table';
@@ -33,9 +30,7 @@ class AdvStats extends Component {
         let WS = this.props.bbref.map((player, i)=>{
             return player.WS
         })
-        let WS48 = this.props.bbref.map((player, i)=>{
-            return player.WS48
-        })
+    
         let OBPM = this.props.bbref.map((player, i)=>{
             return player.OBPM
         })
@@ -90,7 +85,7 @@ class AdvStats extends Component {
                 </div>
                 <div className='content-adv'>
                     <div>
-                    <h2>About the Numbers</h2>
+                    <h2>Advanced Box Score Stats</h2>
                     </div>
                     <Row className="show-grid">
                     
@@ -106,7 +101,6 @@ class AdvStats extends Component {
                             Information about how Win Shares are calculated can be found <a href='https://www.basketball-reference.com/about/ws.html'>here.</a>
                             </p>
                         </Col>
-
                         <Col xs={12} md={5}>
                             <p>OBPM: Offensive Box Score Plus-Minus
                             <br />
@@ -185,7 +179,7 @@ class AdvStats extends Component {
                             >
                                 {this.props.bbref.map((player, i) =>{
                                     return(
-                                        <TableRow>
+                                        <TableRow key={i}>
                                             <TableRowColumn>{player.name}</TableRowColumn>
                                             <TableRowColumn>{player.OWS}</TableRowColumn>
                                             <TableRowColumn>{player.DWS}</TableRowColumn>

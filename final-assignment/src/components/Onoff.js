@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import {Switch, Route} from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
     Table,
     TableBody,
-    TableFooter,
     TableHeader,
-    TableHeaderColumn,
     TableRow,
     TableRowColumn,
   } from 'material-ui/Table';
@@ -24,21 +21,11 @@ class OnOff extends Component {
         let dataLabels = this.props.onoff.map((player, i)=>{
             return player.name
         })
-        let onOffense = this.props.onoff.map((player, i)=>{
-            return player.onOffense
-        })
-        let onDefense = this.props.onoff.map((player, i)=>{
-            return player.onDefense
-        })
+
         let onNet = this.props.onoff.map((player, i)=>{
             return player.onNet
         })
-        let offOffense = this.props.onoff.map((player, i)=>{
-            return player.offOffense
-        })
-        let offDefense = this.props.onoff.map((player, i)=>{
-            return player.offDefense
-        })
+
         let offNet = this.props.onoff.map((player, i)=>{
             return player.offNet
         })
@@ -73,7 +60,7 @@ class OnOff extends Component {
             </div>
             <div className='content'>
             <div>
-            <h2>About the Numbers</h2>
+            <h2>Raw On/Off Statistics</h2>
             </div>
             <Row className="show-grid">
                 <Col xs={12} md={3} className='no-space'>
@@ -130,9 +117,8 @@ class OnOff extends Component {
                     showRowHover={true}
                     >
                         {this.props.onoff.map((player, i) =>{
-                            let netTotal = (player.onNet - player.offNet).toFixed(2);
                             return(
-                                <TableRow>
+                                <TableRow key={i}>
                                     <TableRowColumn>{player.name}</TableRowColumn>
                                     <TableRowColumn>{player.onOffense}</TableRowColumn>
                                     <TableRowColumn>{player.onDefense}</TableRowColumn>

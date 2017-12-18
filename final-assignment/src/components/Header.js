@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Switch, Route} from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {grey900} from 'material-ui/styles/colors';
 import {Link} from 'react-router-dom'

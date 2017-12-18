@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './logo.svg';
 import './App.css';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Switch, Route} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import Header from './components/Header';
 import RPM from './components/RPM';
 import OnOff from './components/Onoff';
@@ -29,21 +27,18 @@ class App extends Component {
       this.setState({
         BBRef: response.data
       })
-      console.log(this.state.BBRef)
     })
     axios.get('http://localhost:8080/rpm')
     .then((response) => {
       this.setState({
         RPM: response.data
       })
-      console.log(this.state.RPM)
     })
     axios.get('http://localhost:8080/onoff')
     .then((response) => {
       this.setState({
         OnOff: response.data
       })
-      console.log(this.state.OnOff)
     })
   }
   sortRow=(e, value)=> {

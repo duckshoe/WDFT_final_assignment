@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import {Switch, Route} from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
     Table,
     TableBody,
-    TableFooter,
     TableHeader,
-    TableHeaderColumn,
     TableRow,
     TableRowColumn,
   } from 'material-ui/Table';
@@ -68,7 +65,7 @@ class RPM extends Component {
                 </div>
                 <div className='content'>
                 <div>
-                <h2>About the Numbers</h2>
+                <h2>RPM</h2>
                 </div>
                 <Row className="show-grid">
                     <Col xs={12} md={6}>
@@ -116,7 +113,7 @@ class RPM extends Component {
                         >
                             {this.props.rpm.map((player, i) =>{
                                 return(
-                                    <TableRow>
+                                    <TableRow key={i}>
                                         <TableRowColumn>{player.name}</TableRowColumn>
                                         <TableRowColumn>{player.oRPM}</TableRowColumn>
                                         <TableRowColumn>{player.dRPM}</TableRowColumn>
